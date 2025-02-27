@@ -1,110 +1,177 @@
-/* Reset some default browser styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Make sure html and body take up full height to help with sticky footer */
-html, body {
-  height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  /* Changed to white to match the screenshot style */
-  background-color: #fff; 
-  /* Use flex layout to push footer to the bottom */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* The default min-height can stay, but using height:100% + flex helps keep footer at bottom */
-  min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Header styling */
-.header {
-  width: 100%;
-  text-align: center;
-  padding: 2rem 0;
-  /* Remove or override background to make header white (like the screenshot) */
-  background-color: transparent; 
+/* Header Styling */
+header {
+    width: 100%;              
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem 1rem;
+    height: 8rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    position: relative;
 }
 
-.header h1 {
-  font-size: 8rem;
-  background: linear-gradient(45deg, #001f3f, #00509e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
+header h1 {
+    font-size: 8rem;
+    background: linear-gradient(45deg, #0056b3, #89cfff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
 }
 
-.header .description {
-  font-size: 1.2rem;
-  color: #001f3f;
+header .description {
+    font-size: 1.2rem;
+    color: #001f3f;
 }
 
-/* Login container styling */
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+}
+
+/* Login Container */
 .login-container {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 400px;
-  margin-top: 2rem;
-  /* This helps push content down so the footer stays at the bottom if there's little content */
-  margin-bottom: 2rem;
-}
-
-/* Form styling */
-.login-form {
-  display: flex;
-  flex-direction: column;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: 8rem;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  color: #001f3f;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #001f3f;
+    font-weight: 500;
 }
 
 .form-group input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.1);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .btn {
-  padding: 0.75rem;
-  background-color: #001f3f;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #0056b3, #89cfff);
+    color: white;
+}
+
+.btn-secondary {
+    background: white;
+    color: #0056b3;
+    border: 1px solid #0056b3;
 }
 
 .btn:hover {
-  background-color: #00509e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer styling - pinned to bottom */
-.footer {
-  /* Pushes it to the bottom if the page content is short */
-  margin-top: auto; 
-  text-align: center;
-  width: 100%;
-  background-color: #fff;
-  padding: 1rem 0;
-  font-size: 0.9rem;
-  color: #001f3f;
-  border-top: 1px solid #e6e6e6;
+/* Footer */
+footer {
+    background-color: white;
+    border-top: 1px solid #e1e1e1;
+    padding: 1.5rem 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #0056b3;
+}
+
+footer p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        margin: 0 auto;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
 }
