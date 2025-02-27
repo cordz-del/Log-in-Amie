@@ -83,8 +83,9 @@ main {
     flex: 1;
     padding: 7rem 1rem 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    padding-right: 10%;
 }
 
 .login-box {
@@ -94,6 +95,20 @@ main {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
+    position: relative;
+}
+
+.login-box::after {
+    content: '';
+    position: absolute;
+    width: 95%;
+    height: 100%;
+    background-color: #808080;
+    border-radius: 15px;
+    top: 10px;
+    left: -10px;
+    z-index: -1;
+    opacity: 0.3;
 }
 
 .input-group {
@@ -185,9 +200,20 @@ footer p {
         gap: 1rem;
     }
 
+    main {
+        justify-content: center;
+        padding-right: 1rem;
+    }
+
     .login-box {
         margin: 0 1rem;
         padding: 2rem;
+    }
+
+    .login-box::after {
+        width: 95%;
+        left: -5px;
+        top: 5px;
     }
 
     main {
