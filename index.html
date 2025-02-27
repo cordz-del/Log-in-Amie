@@ -4,44 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amie - Log In</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- Make sure this path matches exactly your CSS file name -->
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <h1>Amie</h1>
-        <p class="description">Emotional &amp; Mental Health Assistant</p>
-    </header>
-  
-    <main class="main-content">
-        <div class="login-container">
-            <form action="#" method="post" class="login-form">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                </div>
-                
-                <div class="button-group">
-                    <button type="submit" class="btn btn-primary">Sign In</button>
-                    <button type="button" class="btn btn-secondary">Create Profile</button>
-                </div>
-            </form>
-        </div>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <p>© 2025 Amie All Rights Reserved. Crafted with ♥ by the Amie Development Team</p>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Contact Us</a>
+    <div class="container">
+        <header>
+            <h1>Amie</h1>
+            <p class="description">Emotional &amp; Mental Health Assistant</p>
+        </header>
+    
+        <main>
+            <div class="login-box">
+                <form action="#" method="post">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="btn signin">Sign In</button>
+                        <button type="button" class="btn create">Create Profile</button>
+                    </div>
+                </form>
             </div>
-        </div>
-    </footer>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Amie. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
