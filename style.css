@@ -10,23 +10,20 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #f5f7fa;
-    position: relative;
 }
 
 .container {
+    flex: 1;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    flex: 1;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 /* Header */
 header {
-    width: 100%;
     text-align: center;
     padding: 2rem 1rem;
     margin-bottom: 2rem;
@@ -34,9 +31,7 @@ header {
 
 header h1 {
     font-size: 6rem;
-    background: linear-gradient(45deg, #0056b3, #89cfff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #0056b3;
     margin-bottom: 0.5rem;
     letter-spacing: -2px;
 }
@@ -60,13 +55,11 @@ main {
     background: white;
     padding: 2.5rem;
     border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
-                0 1px 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     margin-right: 100px;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
 }
 
 .input-group {
@@ -87,7 +80,6 @@ main {
     border: 1.5px solid #e2e8f0;
     border-radius: 8px;
     font-size: 1rem;
-    transition: all 0.3s ease;
     background-color: #f8fafc;
 }
 
@@ -112,13 +104,11 @@ main {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .btn.signin {
-    background: linear-gradient(45deg, #0056b3, #0077cc);
+    background-color: #0056b3;
     color: white;
-    letter-spacing: 0.5px;
 }
 
 .btn.create {
@@ -128,16 +118,7 @@ main {
 }
 
 .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.btn.signin:hover {
-    background: linear-gradient(45deg, #004494, #0066b3);
-}
-
-.btn.create:hover {
-    background: #f0f7ff;
+    opacity: 0.9;
 }
 
 /* Footer */
@@ -146,7 +127,6 @@ footer {
     border-top: 1px solid #e2e8f0;
     padding: 1.5rem 0;
     margin-top: auto;
-    width: 100%;
 }
 
 .footer-content {
@@ -167,7 +147,6 @@ footer {
     color: #4a5568;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
@@ -193,30 +172,5 @@ footer {
 
     .footer-links {
         justify-content: center;
-    }
-}
-
-/* Additional polish */
-::placeholder {
-    color: #a0aec0;
-}
-
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px #f8fafc inset;
-}
-
-/* Add subtle animation to the login box */
-.login-box {
-    animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
