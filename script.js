@@ -1,6 +1,6 @@
 // script.js for Log-in-Amie
 
-const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
+const API_BASE_URL = 'https://amiemongodb.aarongraham.repl.co';
 
 document.addEventListener('DOMContentLoaded', function () {
   // --- Modal Handling for "Create Profile" ---
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Close the modal if clicking outside the modal content area
   window.addEventListener('click', (event) => {
     if (event.target === signUpModal) {
       signUpModal.style.display = 'none';
@@ -56,10 +55,12 @@ document.addEventListener('DOMContentLoaded', function () {
       try {
         const response = await fetch(`${API_BASE_URL}/api/register`, {
           method: 'POST',
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Origin': 'https://cordz-del.github.io'
           },
+          mode: 'cors',
           credentials: 'include',
           body: JSON.stringify({ username, email, password })
         });
@@ -70,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = await response.json();
+        console.log('Registration successful:', data); // Debug log
 
         // Store user data in localStorage
         localStorage.setItem('currentUser', data.username);
@@ -112,10 +114,12 @@ document.addEventListener('DOMContentLoaded', function () {
       try {
         const response = await fetch(`${API_BASE_URL}/api/login`, {
           method: 'POST',
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Origin': 'https://cordz-del.github.io'
           },
+          mode: 'cors',
           credentials: 'include',
           body: JSON.stringify({ email, password })
         });
@@ -126,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = await response.json();
+        console.log('Login successful:', data); // Debug log
 
         // Store user data in localStorage
         localStorage.setItem('currentUser', data.username);
@@ -141,10 +146,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // --- Error Handler Function ---
+  const handleFetchError = async (response) => {
+    if (!response.ok) {
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Request failed');
+      } else {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    }
+    return response;
+  };
+
   // Check if user is already logged in
   const currentUser = localStorage.getItem('currentUser');
-  if (currentUser && window.location.pathname !== '/Amie-Skills/') {
-    // Optional: Auto-redirect if already logged in
+  if (currentUser) {
+    console.log('User already logged in:', currentUser); // Debug log
+    // Uncomment the following line to enable auto-redirect
     // window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
   }
 });
