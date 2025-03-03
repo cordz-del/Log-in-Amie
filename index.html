@@ -94,14 +94,14 @@
       <h3>Sign In</h3>
       <form id="loginForm" action="#" method="post" autocomplete="off">
         <div class="input-group">
-          <label for="username">Username</label>
+          <label for="email">Email</label>
           <input 
-            type="text" 
-            id="username" 
-            name="username" 
+            type="email" 
+            id="email" 
+            name="email" 
             required
-            placeholder="Enter your username"
-            autocomplete="username">
+            placeholder="Enter your email"
+            autocomplete="email">
         </div>
         
         <div class="input-group">
@@ -134,42 +134,18 @@
       <h2>Create Your Profile</h2>
       <form id="signUpForm">
         <div class="input-group">
-          <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" required placeholder="First Name">
-        </div>
-        <div class="input-group">
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" required placeholder="Last Name">
-        </div>
-        <div class="input-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required placeholder="Email Address">
-        </div>
-        <div class="input-group">
-          <label for="school">School</label>
-          <input type="text" id="school" name="school" placeholder="School">
-        </div>
-        <div class="input-group">
-          <label for="medicalOffice">Medical Office</label>
-          <input type="text" id="medicalOffice" name="medicalOffice" placeholder="Medical Office">
-        </div>
-        <div class="input-group">
-          <label for="doctorName">Doctor's Name</label>
-          <input type="text" id="doctorName" name="doctorName" placeholder="Doctor's Name">
-        </div>
-        <div class="input-group">
-          <label for="age">Age</label>
-          <input type="number" id="age" name="age" placeholder="Age">
-        </div>
-        <div class="input-group">
           <label for="signUpUsername">Username</label>
-          <input type="text" id="signUpUsername" name="username" required placeholder="Username">
+          <input type="text" id="signUpUsername" name="username" required placeholder="Choose a username">
+        </div>
+        <div class="input-group">
+          <label for="signUpEmail">Email Address</label>
+          <input type="email" id="signUpEmail" name="email" required placeholder="Enter your email">
         </div>
         <div class="input-group">
           <label for="signUpPassword">Password</label>
-          <input type="password" id="signUpPassword" name="password" required placeholder="Password">
+          <input type="password" id="signUpPassword" name="password" required placeholder="Choose a password">
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit">Create Account</button>
       </form>
     </div>
   </div>
@@ -183,75 +159,7 @@
     </div>
   </footer>
 
-  <!-- JavaScript to handle modal, login, and sign-up -->
-  <script>
-    // --- Modal Handling ---
-    const signUpModal = document.getElementById('signUpModal');
-    const openSignUpModalBtn = document.getElementById('openSignUpModal');
-    const closeSignUpModalBtn = document.getElementById('closeSignUpModal');
-
-    openSignUpModalBtn.addEventListener('click', () => {
-      signUpModal.style.display = 'block';
-    });
-
-    closeSignUpModalBtn.addEventListener('click', () => {
-      signUpModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-      if (event.target === signUpModal) {
-        signUpModal.style.display = 'none';
-      }
-    });
-
-    // --- Sign-Up Form Submission ---
-    document.getElementById('signUpForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      const userData = Object.fromEntries(formData.entries());
-      
-      try {
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userData)
-        });
-        if (response.ok) {
-          alert('Profile created successfully!');
-          signUpModal.style.display = 'none';
-        } else {
-          alert('Error creating profile. Please try again.');
-        }
-      } catch (error) {
-        console.error('Sign-up error:', error);
-        alert('Server error. Please try again later.');
-      }
-    });
-
-    // --- Login Form Submission ---
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const username = this.username.value;
-      const password = this.password.value;
-      
-      try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        });
-        if (response.ok) {
-          // Store username for later use and redirect to Amie-Skills page
-          localStorage.setItem('currentUser', username);
-          window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
-        } else {
-          alert('Invalid username or password.');
-        }
-      } catch (error) {
-        console.error('Login error:', error);
-        alert('Server error. Please try again later.');
-      }
-    });
-  </script>
+  <!-- Link to external JavaScript file -->
+  <script src="script.js"></script>
 </body>
 </html>
