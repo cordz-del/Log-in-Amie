@@ -56,17 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const response = await fetch(`${API_BASE_URL}/api/register`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
           },
-          credentials: 'omit',
+          credentials: 'include',
           body: JSON.stringify({ username, email, password })
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Registration failed');
-        }
-
+        await handleFetchError(response);
         const data = await response.json();
         console.log('Registration successful:', data);
 
@@ -74,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('currentUser', data.username);
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('userEmail', email);
+        localStorage.setItem('token', data.token); // Store JWT token
 
         alert('Profile created successfully!');
         signUpModal.style.display = 'none';
@@ -112,17 +110,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const response = await fetch(`${API_BASE_URL}/api/login`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
           },
-          credentials: 'omit',
+          credentials: 'include',
           body: JSON.stringify({ email, password })
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Login failed');
-        }
-
+        await handleFetchError(response);
         const data = await response.json();
         console.log('Login successful:', data);
 
@@ -130,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('currentUser', data.username);
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('userEmail', email);
+        localStorage.setItem('token', data.token); // Store JWT token
 
         // Redirect to Amie-Skills page
         window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
@@ -154,9 +150,41 @@ document.addEventListener('DOMContentLoaded', function () {
     return response;
   };
 
+  // --- Logout Function ---
+  const logout = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/logout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        credentials: 'include'
+      });
+
+      await handleFetchError(response);
+      
+      // Clear local storage
+      localStorage.clear();
+      
+      // Redirect to login page
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Logout error:', error);
+      alert('Error logging out. Please try again.');
+    }
+  };
+
+  // Add logout button event listener if it exists
+  const logoutButton = document.getElementById('logoutButton');
+  if (logoutButton) {
+    logoutButton.addEventListener('click', logout);
+  }
+
   // Check if user is already logged in
   const currentUser = localStorage.getItem('currentUser');
-  if (currentUser) {
+  const token = localStorage.getItem('token');
+  
+  if (currentUser && token) {
     console.log('User already logged in:', currentUser);
     // Uncomment the following line to enable auto-redirect
     // window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
