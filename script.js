@@ -31,21 +31,32 @@ document.addEventListener('DOMContentLoaded', function () {
     signUpForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      // Gather form data into an object
-      const formData = new FormData(this);
-      const userData = Object.fromEntries(formData.entries());
+      const username = this.username.value;
+      const email = this.email.value;
+      const password = this.password.value;
+
+      // Basic validation
+      if (!username || !email || !password) {
+        alert('All fields are required');
+        return;
+      }
 
       try {
-        const response = await fetch('https://nodejs-AmieMongoDB.replit.app/api/register', {
+        const response = await fetch('https://nodejs-amiemongodb.replit.app/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userData)
+          body: JSON.stringify({ username, email, password })
         });
+
+        const data = await response.json();
+
         if (response.ok) {
           alert('Profile created successfully!');
           signUpModal.style.display = 'none';
+          // Optional: Clear the form
+          signUpForm.reset();
         } else {
-          alert('Error creating profile. Please try again.');
+          alert(data.error || 'Error creating profile. Please try again.');
         }
       } catch (error) {
         console.error('Sign-up error:', error);
@@ -60,21 +71,32 @@ document.addEventListener('DOMContentLoaded', function () {
     loginForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const username = this.username.value;
+      const email = this.email.value;
       const password = this.password.value;
 
+      // Basic validation
+      if (!email || !password) {
+        alert('Email and password are required');
+        return;
+      }
+
       try {
-        const response = await fetch('https://nodejs-AmieMongoDB.replit.app/api/login', {
+        const response = await fetch('https://nodejs-amiemongodb.replit.app/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
+          body: JSON.stringify({ email, password })
         });
+
+        const data = await response.json();
+
         if (response.ok) {
-          // Store the username for later use and redirect to Amie-Skills page
-          localStorage.setItem('currentUser', username);
+          // Store the username and userId for later use
+          localStorage.setItem('currentUser', data.username);
+          localStorage.setItem('userId', data.userId);
+          // Redirect to Amie-Skills page
           window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
         } else {
-          alert('Invalid username or password.');
+          alert(data.error || 'Invalid email or password.');
         }
       } catch (error) {
         console.error('Login error:', error);
