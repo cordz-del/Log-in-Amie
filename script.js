@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const userData = Object.fromEntries(formData.entries());
 
       try {
-        const response = await fetch('/api/register', {
+        const response = await fetch('https://nodejs-AmieMongoDB.replit.app/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(userData)
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const password = this.password.value;
 
       try {
-        const response = await fetch('/api/login', {
+        const response = await fetch('https://nodejs-AmieMongoDB.replit.app/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })
