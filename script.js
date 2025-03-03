@@ -70,10 +70,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = await response.json();
+
+        // Store user data in localStorage
+        localStorage.setItem('currentUser', data.username);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('userEmail', email);
+
         alert('Profile created successfully!');
         signUpModal.style.display = 'none';
         signUpForm.reset();
 
+        // Redirect to Amie-Skills page
+        window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
       } catch (error) {
         console.error('Sign-up error:', error);
         alert(error.message || 'Server error. Please try again later.');
@@ -126,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Redirect to Amie-Skills page
         window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
-
       } catch (error) {
         console.error('Login error:', error);
         alert(error.message || 'Invalid email or password.');
