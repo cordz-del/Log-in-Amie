@@ -1,5 +1,7 @@
 // script.js for Log-in-Amie
 
+const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
+
 document.addEventListener('DOMContentLoaded', function () {
   // --- Modal Handling for "Create Profile" ---
   const signUpModal = document.getElementById('signUpModal');
@@ -31,36 +33,50 @@ document.addEventListener('DOMContentLoaded', function () {
     signUpForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const username = this.username.value;
-      const email = this.email.value;
+      const username = this.username.value.trim();
+      const email = this.email.value.trim();
       const password = this.password.value;
 
-      // Basic validation
+      // Enhanced validation
       if (!username || !email || !password) {
         alert('All fields are required');
         return;
       }
 
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long');
+        return;
+      }
+
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+
       try {
-        const response = await fetch('https://nodejs-amiemongodb.replit.app/api/register', {
+        const response = await fetch(`${API_BASE_URL}/api/register`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          credentials: 'include',
           body: JSON.stringify({ username, email, password })
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
-          alert('Profile created successfully!');
-          signUpModal.style.display = 'none';
-          // Optional: Clear the form
-          signUpForm.reset();
-        } else {
-          alert(data.error || 'Error creating profile. Please try again.');
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Registration failed');
         }
+
+        const data = await response.json();
+        alert('Profile created successfully!');
+        signUpModal.style.display = 'none';
+        signUpForm.reset();
+
       } catch (error) {
         console.error('Sign-up error:', error);
-        alert('Server error. Please try again later.');
+        alert(error.message || 'Server error. Please try again later.');
       }
     });
   }
@@ -71,37 +87,57 @@ document.addEventListener('DOMContentLoaded', function () {
     loginForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const email = this.email.value;
+      const email = this.email.value.trim();
       const password = this.password.value;
 
-      // Basic validation
+      // Enhanced validation
       if (!email || !password) {
         alert('Email and password are required');
         return;
       }
 
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+
       try {
-        const response = await fetch('https://nodejs-amiemongodb.replit.app/api/login', {
+        const response = await fetch(`${API_BASE_URL}/api/login`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          credentials: 'include',
           body: JSON.stringify({ email, password })
         });
 
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Login failed');
+        }
+
         const data = await response.json();
 
-        if (response.ok) {
-          // Store the username and userId for later use
-          localStorage.setItem('currentUser', data.username);
-          localStorage.setItem('userId', data.userId);
-          // Redirect to Amie-Skills page
-          window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
-        } else {
-          alert(data.error || 'Invalid email or password.');
-        }
+        // Store user data in localStorage
+        localStorage.setItem('currentUser', data.username);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('userEmail', email);
+
+        // Redirect to Amie-Skills page
+        window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+
       } catch (error) {
         console.error('Login error:', error);
-        alert('Server error. Please try again later.');
+        alert(error.message || 'Invalid email or password.');
       }
     });
+  }
+
+  // Check if user is already logged in
+  const currentUser = localStorage.getItem('currentUser');
+  if (currentUser && window.location.pathname !== '/Amie-Skills/') {
+    // Optional: Auto-redirect if already logged in
+    // window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
   }
 });
