@@ -1,79 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Log in to Amie - Your Emotional & Mental Health Assistant">
-    <title>Amie - Log In</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Log in to Amie - Your Emotional & Mental Health Assistant">
+  <title>Amie - Log In</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Minimal inline CSS for the modal pop-out -->
+  <style>
+    /* Modal container (hidden by default) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    /* Modal content box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 8px;
+    }
+    /* The close button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    /* Optional: Style the input groups within the modal */
+    .modal .input-group {
+      margin-bottom: 1rem;
+    }
+    .modal .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .modal .input-group input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .modal button {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #0056b3;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <header class="main-header">
-        <nav class="nav-container">
-            <div class="logo">
-                <h1>Amie</h1>
-                <p class="description">Emotional & Mental Health Assistant</p>
-            </div>
-            <div class="nav-links">
-                <a href="#" class="active">Home</a>
-                <a href="#">About</a>
-                <a href="#">Services</a>
-                <a href="#">Contact</a>
-            </div>
-        </nav>
-    </header>
+  <header class="main-header">
+    <nav class="nav-container">
+      <div class="logo">
+        <h1>Amie</h1>
+        <p class="description">Emotional & Mental Health Assistant</p>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+      </div>
+    </nav>
+  </header>
 
-    <main>
-        <div class="hero-content">
-            <h2>Welcome Back</h2>
-            <p>Your journey to better mental health continues here.</p>
+  <main>
+    <div class="hero-content">
+      <h2>Welcome Back</h2>
+      <p>Your journey to better mental health continues here.</p>
+    </div>
+    <div class="login-box">
+      <h3>Sign In</h3>
+      <form id="loginForm" action="#" method="post" autocomplete="off">
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            required
+            placeholder="Enter your username"
+            autocomplete="username">
         </div>
-        <div class="login-box">
-            <h3>Sign In</h3>
-            <form action="#" method="post" autocomplete="off">
-                <div class="input-group">
-                    <label for="username">Username</label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username" 
-                        required
-                        placeholder="Enter your username"
-                        autocomplete="username">
-                </div>
-                
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        required
-                        placeholder="Enter your password"
-                        autocomplete="current-password">
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
-                
-                <div class="button-group">
-                    <button type="submit" class="btn signin">Sign In</button>
-                    <button type="button" class="btn create">Create Profile</button>
-                </div>
-            </form>
-            <div class="terms">
-                <p>By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
-            </div>
+        
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            required
+            placeholder="Enter your password"
+            autocomplete="current-password">
+          <a href="#" class="forgot-password">Forgot Password?</a>
         </div>
-    </main>
+        
+        <div class="button-group">
+          <button type="submit" class="btn signin">Sign In</button>
+          <button type="button" class="btn create" id="openSignUpModal">Create Profile</button>
+        </div>
+      </form>
+      <div class="terms">
+        <p>By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+      </div>
+    </div>
+  </main>
 
-    <footer>
-        <p>&copy; 2025 Amie. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Support</a>
+  <!-- Create Profile Modal -->
+  <div id="signUpModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeSignUpModal">&times;</span>
+      <h2>Create Your Profile</h2>
+      <form id="signUpForm">
+        <div class="input-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" required placeholder="First Name">
         </div>
-    </footer>
-    <script src="script.js"></script>
+        <div class="input-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" required placeholder="Last Name">
+        </div>
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="Email Address">
+        </div>
+        <div class="input-group">
+          <label for="school">School</label>
+          <input type="text" id="school" name="school" placeholder="School">
+        </div>
+        <div class="input-group">
+          <label for="medicalOffice">Medical Office</label>
+          <input type="text" id="medicalOffice" name="medicalOffice" placeholder="Medical Office">
+        </div>
+        <div class="input-group">
+          <label for="doctorName">Doctor's Name</label>
+          <input type="text" id="doctorName" name="doctorName" placeholder="Doctor's Name">
+        </div>
+        <div class="input-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age" placeholder="Age">
+        </div>
+        <div class="input-group">
+          <label for="signUpUsername">Username</label>
+          <input type="text" id="signUpUsername" name="username" required placeholder="Username">
+        </div>
+        <div class="input-group">
+          <label for="signUpPassword">Password</label>
+          <input type="password" id="signUpPassword" name="password" required placeholder="Password">
+        </div>
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Amie. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Support</a>
+    </div>
+  </footer>
+
+  <!-- JavaScript to handle modal, login, and sign-up -->
+  <script>
+    // --- Modal Handling ---
+    const signUpModal = document.getElementById('signUpModal');
+    const openSignUpModalBtn = document.getElementById('openSignUpModal');
+    const closeSignUpModalBtn = document.getElementById('closeSignUpModal');
+
+    openSignUpModalBtn.addEventListener('click', () => {
+      signUpModal.style.display = 'block';
+    });
+
+    closeSignUpModalBtn.addEventListener('click', () => {
+      signUpModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target === signUpModal) {
+        signUpModal.style.display = 'none';
+      }
+    });
+
+    // --- Sign-Up Form Submission ---
+    document.getElementById('signUpForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const userData = Object.fromEntries(formData.entries());
+      
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData)
+        });
+        if (response.ok) {
+          alert('Profile created successfully!');
+          signUpModal.style.display = 'none';
+        } else {
+          alert('Error creating profile. Please try again.');
+        }
+      } catch (error) {
+        console.error('Sign-up error:', error);
+        alert('Server error. Please try again later.');
+      }
+    });
+
+    // --- Login Form Submission ---
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = this.username.value;
+      const password = this.password.value;
+      
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        if (response.ok) {
+          // Store username for later use and redirect to Amie-Skills page
+          localStorage.setItem('currentUser', username);
+          window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+        } else {
+          alert('Invalid username or password.');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        alert('Server error. Please try again later.');
+      }
+    });
+  </script>
 </body>
 </html>
