@@ -1,6 +1,6 @@
 // script.js for Log-in-Amie
 
-const API_BASE_URL = 'https://amiemongodb.aarongraham.repl.co';
+const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
 
 document.addEventListener('DOMContentLoaded', function () {
   // --- Modal Handling for "Create Profile" ---
@@ -56,12 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const response = await fetch(`${API_BASE_URL}/api/register`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Origin': 'https://cordz-del.github.io'
+            'Content-Type': 'application/json'
           },
-          mode: 'cors',
-          credentials: 'include',
+          credentials: 'omit',
           body: JSON.stringify({ username, email, password })
         });
 
@@ -71,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = await response.json();
-        console.log('Registration successful:', data); // Debug log
+        console.log('Registration successful:', data);
 
         // Store user data in localStorage
         localStorage.setItem('currentUser', data.username);
@@ -115,12 +112,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const response = await fetch(`${API_BASE_URL}/api/login`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Origin': 'https://cordz-del.github.io'
+            'Content-Type': 'application/json'
           },
-          mode: 'cors',
-          credentials: 'include',
+          credentials: 'omit',
           body: JSON.stringify({ email, password })
         });
 
@@ -130,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = await response.json();
-        console.log('Login successful:', data); // Debug log
+        console.log('Login successful:', data);
 
         // Store user data in localStorage
         localStorage.setItem('currentUser', data.username);
@@ -163,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Check if user is already logged in
   const currentUser = localStorage.getItem('currentUser');
   if (currentUser) {
-    console.log('User already logged in:', currentUser); // Debug log
+    console.log('User already logged in:', currentUser);
     // Uncomment the following line to enable auto-redirect
     // window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
   }
