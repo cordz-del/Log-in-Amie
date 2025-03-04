@@ -1,5 +1,3 @@
-// script.js for Log-in-Amie
-
 const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -109,13 +107,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     body: JSON.stringify({ username, email, password })
                 });
 
+                const data = await response.json();
+
                 if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                    throw new Error(data.error || `HTTP error! status: ${response.status}`);
                 }
 
-                const data = await response.json();
-                
                 // Store user data securely
                 localStorage.setItem('currentUser', data.username);
                 localStorage.setItem('userId', data.userId);
@@ -126,8 +123,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 signUpModal.style.display = 'none';
                 signUpForm.reset();
 
-                // Redirect to Amie-Skills page
-                window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+                // Redirect to Amie-Skills page after a short delay
+                setTimeout(() => {
+                    window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+                }, 1500);
             } catch (error) {
                 console.error('Sign-up error:', error);
                 showError(error.message || 'Failed to create account. Please try again.');
@@ -172,12 +171,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     body: JSON.stringify({ email, password })
                 });
 
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-                }
-
                 const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || `HTTP error! status: ${response.status}`);
+                }
 
                 // Store user data securely
                 localStorage.setItem('currentUser', data.username);
@@ -187,8 +185,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 showSuccess('Login successful!');
 
-                // Redirect to Amie-Skills page
-                window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+                // Redirect to Amie-Skills page after a short delay
+                setTimeout(() => {
+                    window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+                }, 1500);
             } catch (error) {
                 console.error('Login error:', error);
                 showError(error.message || 'Invalid email or password.');
@@ -215,7 +215,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error('Logout failed');
+                const data = await response.json();
+                throw new Error(data.error || 'Logout failed');
             }
 
             // Clear local storage
@@ -235,15 +236,15 @@ document.addEventListener('DOMContentLoaded', function () {
         logoutButton.addEventListener('click', logout);
     }
 
-    // Check authentication status
+    // Check authentication status and handle auto-redirect
     const checkAuth = () => {
-        const currentUser = localStorage.getItem('currentUser');
         const token = localStorage.getItem('token');
+        const currentPath = window.location.pathname;
         
-        if (currentUser && token) {
-            console.log('User authenticated:', currentUser);
-            // Uncomment to enable auto-redirect
-            // window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+        if (token && currentPath === '/') {
+            window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+        } else if (!token && currentPath !== '/') {
+            window.location.href = '/';
         }
     };
 
