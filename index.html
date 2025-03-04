@@ -1,231 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Log in to Amie - Your Emotional & Mental Health Assistant">
-    <title>Amie - Log In</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 8px;
-            position: relative;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 10px;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-        }
-        .modal .input-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        .modal .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        .modal .input-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-        .modal .input-group input:focus {
-            border-color: #0056b3;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(0,86,179,0.1);
-        }
-        .modal button {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: none;
-            border-radius: 4px;
-            background-color: #0056b3;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .modal button:hover {
-            background-color: #004494;
-        }
-        .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-            display: none;
-            position: absolute;
-            bottom: -20px;
-        }
-        .loading {
-            display: none;
-            margin-left: 10px;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-        .password-requirements {
-            font-size: 0.75rem;
-            color: #666;
-            margin-top: 0.25rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Log in to Amie - Your Emotional & Mental Health Assistant">
+  <title>Amie - Log In</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 8px;
+      position: relative;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+    }
+    .modal .input-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .modal .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .modal .input-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .modal .input-group input:focus {
+      border-color: #0056b3;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0,86,179,0.1);
+    }
+    .modal button {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #0056b3;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .modal button:hover {
+      background-color: #004494;
+    }
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      display: none;
+      position: absolute;
+      bottom: -20px;
+    }
+    .loading {
+      display: none;
+      margin-left: 10px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+    .password-requirements {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 0.25rem;
+    }
+  </style>
 </head>
 <body>
-    <header class="main-header">
-        <nav class="nav-container">
-            <div class="logo">
-                <h1>Amie</h1>
-                <p class="description">Emotional & Mental Health Assistant</p>
-            </div>
-            <div class="nav-links">
-                <a href="#" class="active">Home</a>
-                <a href="#">About</a>
-                <a href="#">Services</a>
-                <a href="#">Contact</a>
-            </div>
-        </nav>
-    </header>
+  <header class="main-header">
+    <nav class="nav-container">
+      <div class="logo">
+        <h1>Amie</h1>
+        <p class="description">Emotional & Mental Health Assistant</p>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+      </div>
+    </nav>
+  </header>
 
-    <main>
-        <div class="hero-content">
-            <h2>Welcome Back</h2>
-            <p>Your journey to better mental health continues here.</p>
-        </div>
-        <div class="login-box">
-            <h3>Sign In</h3>
-            <form id="loginForm" action="#" method="post" novalidate>
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required
-                        placeholder="Enter your email"
-                        autocomplete="email">
-                    <div class="error-message" id="emailError"></div>
-                </div>
-                
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        required
-                        placeholder="Enter your password"
-                        autocomplete="current-password">
-                    <div class="error-message" id="passwordError"></div>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
-                
-                <div class="button-group">
-                    <button type="submit" class="btn signin">
-                        Sign In
-                        <span class="loading" id="loginLoading">Loading...</span>
-                    </button>
-                    <button type="button" class="btn create" id="openSignUpModal">Create Profile</button>
-                </div>
-            </form>
-            <div class="terms">
-                <p>By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Create Profile Modal -->
-    <div id="signUpModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeSignUpModal">&times;</span>
-            <h2>Create Your Profile</h2>
-            <form id="signUpForm" novalidate>
-                <div class="input-group">
-                    <label for="signUpUsername">Username</label>
-                    <input 
-                        type="text" 
-                        id="signUpUsername" 
-                        name="username" 
-                        required 
-                        minlength="3"
-                        placeholder="Choose a username">
-                    <div class="error-message" id="usernameError"></div>
-                </div>
-                <div class="input-group">
-                    <label for="signUpEmail">Email Address</label>
-                    <input 
-                        type="email" 
-                        id="signUpEmail" 
-                        name="email" 
-                        required 
-                        placeholder="Enter your email">
-                    <div class="error-message" id="signUpEmailError"></div>
-                </div>
-                <div class="input-group">
-                    <label for="signUpPassword">Password</label>
-                    <input 
-                        type="password" 
-                        id="signUpPassword" 
-                        name="password" 
-                        required 
-                        minlength="8"
-                        placeholder="Choose a password">
-                    <div class="password-requirements">
-                        Password must be at least 8 characters long and include uppercase, lowercase, number, and special character
-                    </div>
-                    <div class="error-message" id="signUpPasswordError"></div>
-                </div>
-                <button type="submit">
-                    Create Account
-                    <span class="loading" id="signUpLoading">Loading...</span>
-                </button>
-            </form>
-        </div>
+  <main>
+    <div class="hero-content">
+      <h2>Welcome Back</h2>
+      <p>Your journey to better mental health continues here.</p>
     </div>
-
-    <footer>
-        <p>&copy; 2025 Amie. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Support</a>
+    <div class="login-box">
+      <h3>Sign In</h3>
+      <form id="loginForm" action="#" method="post" novalidate>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required
+            placeholder="Enter your email"
+            autocomplete="email">
+          <div class="error-message" id="emailError"></div>
         </div>
-    </footer>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            required
+            placeholder="Enter your password"
+            autocomplete="current-password">
+          <div class="error-message" id="passwordError"></div>
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+        <div class="button-group">
+          <button type="submit" class="btn signin">
+            Sign In
+            <span class="loading" id="loginLoading">Loading...</span>
+          </button>
+          <button type="button" class="btn create" id="openSignUpModal">Create Profile</button>
+        </div>
+      </form>
+      <div class="terms">
+        <p>By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+      </div>
+    </div>
+  </main>
 
-    <script src="script.js"></script>
+  <!-- Create Profile Modal -->
+  <div id="signUpModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeSignUpModal">&times;</span>
+      <h2>Create Your Profile</h2>
+      <form id="signUpForm" novalidate>
+        <div class="input-group">
+          <label for="signUpUsername">Username</label>
+          <input 
+            type="text" 
+            id="signUpUsername" 
+            name="username" 
+            required 
+            minlength="3"
+            placeholder="Choose a username">
+          <div class="error-message" id="usernameError"></div>
+        </div>
+        <div class="input-group">
+          <label for="signUpEmail">Email Address</label>
+          <input 
+            type="email" 
+            id="signUpEmail" 
+            name="email" 
+            required 
+            placeholder="Enter your email">
+          <div class="error-message" id="signUpEmailError"></div>
+        </div>
+        <div class="input-group">
+          <label for="signUpPassword">Password</label>
+          <input 
+            type="password" 
+            id="signUpPassword" 
+            name="password" 
+            required 
+            minlength="8"
+            placeholder="Choose a password">
+          <div class="password-requirements">
+            Password must be at least 8 characters long and include uppercase, lowercase, number, and special character
+          </div>
+          <div class="error-message" id="signUpPasswordError"></div>
+        </div>
+        <button type="submit">
+          Create Account
+          <span class="loading" id="signUpLoading">Loading...</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Amie. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Support</a>
+    </div>
+  </footer>
+
+  <script>
+    const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // --- Modal Handling for "Create Profile" ---
+      const signUpModal = document.getElementById('signUpModal');
+      const openSignUpModalBtn = document.getElementById('openSignUpModal');
+      const closeSignUpModalBtn = document.getElementById('closeSignUpModal');
+      const errorMessageElement = document.getElementById('errorMessage');
+      const successMessageElement = document.getElementById('successMessage');
+
+      // Show error message function
+      const showError = (message) => {
+        if (errorMessageElement) {
+          errorMessageElement.textContent = message;
+          errorMessageElement.style.display = 'block';
+          setTimeout(() => {
+            errorMessageElement.style.display = 'none';
+          }, 5000);
+        } else {
+          alert(message);
+        }
+      };
+
+      // Show success message function
+      const showSuccess = (message) => {
+        if (successMessageElement) {
+          successMessageElement.textContent = message;
+          successMessageElement.style.display = 'block';
+          setTimeout(() => {
+            successMessageElement.style.display = 'none';
+          }, 5000);
+        } else {
+          alert(message);
+        }
+      };
+
+      // Modal event listeners
+      if (openSignUpModalBtn) {
+        openSignUpModalBtn.addEventListener('click', () => {
+          signUpModal.style.display = 'block';
+        });
+      }
+      if (closeSignUpModalBtn) {
+        closeSignUpModalBtn.addEventListener('click', () => {
+          signUpModal.style.display = 'none';
+        });
+      }
+      window.addEventListener('click', (event) => {
+        if (event.target === signUpModal) {
+          signUpModal.style.display = 'none';
+        }
+      });
+
+      // --- Form Validation Functions ---
+      const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
+      const validatePassword = (password) => {
+        return password.length >= 6;
+      };
+
+      // --- Sign-Up Form Submission ---
+      const signUpForm = document.getElementById('signUpForm');
+      if (signUpForm) {
+        signUpForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const username = this.username ? this.username.value.trim() : '';
+          const email = this.email ? this.email.value.trim() : '';
+          const password = this.password ? this.password.value : '';
+          console.log('Submitting registration:', {
+            url: `${API_BASE_URL}/api/register`,
+            data: { username, email, password: '***' }
+          });
+          if (!username || !email || !password) {
+            showError('All fields are required');
+            return;
+          }
+          if (!validatePassword(password)) {
+            showError('Password must be at least 6 characters long');
+            return;
+          }
+          if (!validateEmail(email)) {
+            showError('Please enter a valid email address');
+            return;
+          }
+          try {
+            const response = await fetch(`${API_BASE_URL}/api/register`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              credentials: 'include',
+              mode: 'cors',
+              body: JSON.stringify({ username, email, password })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+              throw new Error(data.error || `HTTP error! status: ${response.status}`);
+            }
+            localStorage.setItem('currentUser', data.username);
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('token', data.token);
+            showSuccess('Profile created successfully!');
+            signUpModal.style.display = 'none';
+            signUpForm.reset();
+            setTimeout(() => {
+              window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+            }, 1500);
+          } catch (error) {
+            console.error('Sign-up error:', error);
+            showError(error.message || 'Failed to create account. Please try again.');
+          }
+        });
+      }
+
+      // --- Login Form Submission ---
+      const loginForm = document.getElementById('loginForm');
+      if (loginForm) {
+        loginForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const email = this.email ? this.email.value.trim() : '';
+          const password = this.password ? this.password.value : '';
+          console.log('Attempting login:', {
+            url: `${API_BASE_URL}/api/login`,
+            email: email
+          });
+          if (!email || !password) {
+            showError('Email and password are required');
+            return;
+          }
+          if (!validateEmail(email)) {
+            showError('Please enter a valid email address');
+            return;
+          }
+          try {
+            const response = await fetch(`${API_BASE_URL}/api/login`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              credentials: 'include',
+              mode: 'cors',
+              body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+              throw new Error(data.error || `HTTP error! status: ${response.status}`);
+            }
+            localStorage.setItem('currentUser', data.username);
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('token', data.token);
+            showSuccess('Login successful!');
+            setTimeout(() => {
+              window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+            }, 1500);
+          } catch (error) {
+            console.error('Login error:', error);
+            showError(error.message || 'Invalid email or password.');
+          }
+        });
+      }
+
+      // --- Logout Function ---
+      const logout = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          if (!token) {
+            throw new Error('No authentication token found');
+          }
+          const response = await fetch(`${API_BASE_URL}/api/logout`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            mode: 'cors'
+          });
+          if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.error || 'Logout failed');
+          }
+          localStorage.clear();
+          window.location.href = 'https://cordz-del.github.io/Log-in-Amie/';
+        } catch (error) {
+          console.error('Logout error:', error);
+          showError('Error logging out. Please try again.');
+        }
+      };
+      const logoutButton = document.getElementById('logoutButton');
+      if (logoutButton) {
+        logoutButton.addEventListener('click', logout);
+      }
+
+      // --- Authentication Check ---
+      // If user is logged in, force redirect to Amie-Skills if not already there;
+      // if not logged in, ensure they're on the Log-in-Amie page.
+      const checkAuth = () => {
+        const token = localStorage.getItem('token');
+        const currentURL = window.location.href;
+        if (token && !currentURL.includes('/Amie-Skills')) {
+          window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+        } else if (!token && !currentURL.includes('/Log-in-Amie')) {
+          window.location.href = 'https://cordz-del.github.io/Log-in-Amie/';
+        }
+      };
+      checkAuth();
+    });
+  </script>
 </body>
 </html>
