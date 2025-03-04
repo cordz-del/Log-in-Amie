@@ -1,6 +1,6 @@
 // script.js for Log-in-Amie
 
-const API_BASE_URL = 'https://amiemongodb.raarongraham.repl.co';
+const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
 
 document.addEventListener('DOMContentLoaded', function () {
     // --- Modal Handling for "Create Profile" ---
@@ -75,6 +75,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = this.email.value.trim();
             const password = this.password.value;
 
+            // Debug log
+            console.log('Submitting registration:', {
+                url: `${API_BASE_URL}/api/register`,
+                data: { username, email, password: '***' }
+            });
+
             // Enhanced validation
             if (!username || !email || !password) {
                 showError('All fields are required');
@@ -99,12 +105,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         'Accept': 'application/json'
                     },
                     credentials: 'include',
+                    mode: 'cors',
                     body: JSON.stringify({ username, email, password })
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Registration failed');
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
                 }
 
                 const data = await response.json();
@@ -123,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
             } catch (error) {
                 console.error('Sign-up error:', error);
-                showError(error.message || 'Server error. Please try again later.');
+                showError(error.message || 'Failed to create account. Please try again.');
             }
         });
     }
@@ -136,6 +143,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const email = this.email.value.trim();
             const password = this.password.value;
+
+            // Debug log
+            console.log('Attempting login:', {
+                url: `${API_BASE_URL}/api/login`,
+                email: email
+            });
 
             if (!email || !password) {
                 showError('Email and password are required');
@@ -155,12 +168,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         'Accept': 'application/json'
                     },
                     credentials: 'include',
+                    mode: 'cors',
                     body: JSON.stringify({ email, password })
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Login failed');
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
                 }
 
                 const data = await response.json();
@@ -196,7 +210,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                credentials: 'include'
+                credentials: 'include',
+                mode: 'cors'
             });
 
             if (!response.ok) {
