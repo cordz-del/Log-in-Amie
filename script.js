@@ -66,15 +66,17 @@ document.addEventListener('DOMContentLoaded', function () {
   if (signUpForm) {
     signUpForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const username = this.username.value.trim();
-      const email = this.email.value.trim();
-      const password = this.password.value;
-      // Debug log
+      // Retrieve values – ensure your input elements have IDs/names: "username", "email", "password"
+      const username = this.username ? this.username.value.trim() : '';
+      const email = this.email ? this.email.value.trim() : '';
+      const password = this.password ? this.password.value : '';
+      
       console.log('Submitting registration:', {
         url: `${API_BASE_URL}/api/register`,
         data: { username, email, password: '***' }
       });
-      // Enhanced validation
+
+      // Enhanced validation: All fields must be non-empty
       if (!username || !email || !password) {
         showError('All fields are required');
         return;
@@ -87,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showError('Please enter a valid email address');
         return;
       }
+
       try {
         const response = await fetch(`${API_BASE_URL}/api/register`, {
           method: 'POST',
@@ -102,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!response.ok) {
           throw new Error(data.error || `HTTP error! status: ${response.status}`);
         }
-        // Store user data securely
+        // Store user data (using localStorage for session persistence)
         localStorage.setItem('currentUser', data.username);
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('userEmail', email);
@@ -126,13 +129,14 @@ document.addEventListener('DOMContentLoaded', function () {
   if (loginForm) {
     loginForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const email = this.email.value.trim();
-      const password = this.password.value;
-      // Debug log
+      const email = this.email ? this.email.value.trim() : '';
+      const password = this.password ? this.password.value : '';
+      
       console.log('Attempting login:', {
         url: `${API_BASE_URL}/api/login`,
         email: email
       });
+
       if (!email || !password) {
         showError('Email and password are required');
         return;
@@ -141,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showError('Please enter a valid email address');
         return;
       }
+
       try {
         const response = await fetch(`${API_BASE_URL}/api/login`, {
           method: 'POST',
@@ -193,34 +198,31 @@ document.addEventListener('DOMContentLoaded', function () {
         const data = await response.json();
         throw new Error(data.error || 'Logout failed');
       }
-      // Clear local storage
       localStorage.clear();
-      // Redirect to login page
       window.location.href = 'https://cordz-del.github.io/Log-in-Amie/';
     } catch (error) {
       console.error('Logout error:', error);
       showError('Error logging out. Please try again.');
     }
   };
-  // Add logout button event listener
   const logoutButton = document.getElementById('logoutButton');
   if (logoutButton) {
     logoutButton.addEventListener('click', logout);
   }
 
-  // Check authentication status and handle auto-redirect
+  // --- Authentication Check ---
+  // Redirect users based on login status.
   const checkAuth = () => {
     const token = localStorage.getItem('token');
     const currentPath = window.location.pathname;
+    // If user is logged in but on the Log-in-Amie page, redirect to Amie-Skills
     if (token && currentPath.includes('/Log-in-Amie')) {
-      // User is logged in but on the login page; redirect to main page
       window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
-    } else if (!token && currentPath.includes('/Amie-Skills')) {
-      // User is not logged in but on the main page; redirect to login page
+    }
+    // If user is not logged in but is trying to access Amie-Skills, redirect to Log-in-Amie
+    else if (!token && currentPath.includes('/Amie-Skills')) {
       window.location.href = 'https://cordz-del.github.io/Log-in-Amie/';
     }
   };
-  // Check authentication on page load
   checkAuth();
-
 });
