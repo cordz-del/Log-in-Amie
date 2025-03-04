@@ -27,6 +27,7 @@
             width: 90%;
             max-width: 500px;
             border-radius: 8px;
+            position: relative;
         }
         .close {
             color: #aaa;
@@ -34,6 +35,9 @@
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 10px;
         }
         .close:hover,
         .close:focus {
@@ -41,19 +45,29 @@
             text-decoration: none;
         }
         .modal .input-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
         }
         .modal .input-group label {
             display: block;
             margin-bottom: 0.5rem;
+            font-weight: 500;
         }
         .modal .input-group input {
             width: 100%;
-            padding: 0.5rem;
+            padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .modal .input-group input:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0,86,179,0.1);
         }
         .modal button {
+            width: 100%;
             padding: 0.75rem 1rem;
             border: none;
             border-radius: 4px;
@@ -61,16 +75,33 @@
             color: white;
             font-weight: 600;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .modal button:hover {
+            background-color: #004494;
         }
         .error-message {
             color: #dc3545;
             font-size: 0.875rem;
             margin-top: 0.25rem;
             display: none;
+            position: absolute;
+            bottom: -20px;
         }
         .loading {
             display: none;
             margin-left: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        .password-requirements {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.25rem;
         }
     </style>
 </head>
@@ -97,7 +128,7 @@
         </div>
         <div class="login-box">
             <h3>Sign In</h3>
-            <form id="loginForm" action="#" method="post" autocomplete="off">
+            <form id="loginForm" action="#" method="post" novalidate>
                 <div class="input-group">
                     <label for="email">Email</label>
                     <input 
@@ -126,7 +157,7 @@
                 <div class="button-group">
                     <button type="submit" class="btn signin">
                         Sign In
-                        <span class="loading" id="loginLoading">...</span>
+                        <span class="loading" id="loginLoading">Loading...</span>
                     </button>
                     <button type="button" class="btn create" id="openSignUpModal">Create Profile</button>
                 </div>
@@ -142,7 +173,7 @@
         <div class="modal-content">
             <span class="close" id="closeSignUpModal">&times;</span>
             <h2>Create Your Profile</h2>
-            <form id="signUpForm">
+            <form id="signUpForm" novalidate>
                 <div class="input-group">
                     <label for="signUpUsername">Username</label>
                     <input 
@@ -171,13 +202,16 @@
                         id="signUpPassword" 
                         name="password" 
                         required 
-                        minlength="6"
+                        minlength="8"
                         placeholder="Choose a password">
+                    <div class="password-requirements">
+                        Password must be at least 8 characters long and include uppercase, lowercase, number, and special character
+                    </div>
                     <div class="error-message" id="signUpPasswordError"></div>
                 </div>
                 <button type="submit">
                     Create Account
-                    <span class="loading" id="signUpLoading">...</span>
+                    <span class="loading" id="signUpLoading">Loading...</span>
                 </button>
             </form>
         </div>
