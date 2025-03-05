@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
+    /* Modal styles */
     .modal {
       display: none;
       position: fixed;
@@ -106,6 +107,7 @@
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="main-header">
     <nav class="nav-container">
       <div class="logo">
@@ -121,6 +123,7 @@
     </nav>
   </header>
 
+  <!-- Main Content -->
   <main>
     <div class="hero-content">
       <h2>Welcome Back</h2>
@@ -215,6 +218,7 @@
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Amie. All rights reserved.</p>
     <div class="footer-links">
@@ -228,7 +232,7 @@
     const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
 
     document.addEventListener('DOMContentLoaded', function () {
-      // --- Modal Handling for "Create Profile" ---
+      // --- Modal Handling ---
       const signUpModal = document.getElementById('signUpModal');
       const openSignUpModalBtn = document.getElementById('openSignUpModal');
       const closeSignUpModalBtn = document.getElementById('closeSignUpModal');
@@ -240,9 +244,7 @@
         if (errorMessageElement) {
           errorMessageElement.textContent = message;
           errorMessageElement.style.display = 'block';
-          setTimeout(() => {
-            errorMessageElement.style.display = 'none';
-          }, 5000);
+          setTimeout(() => { errorMessageElement.style.display = 'none'; }, 5000);
         } else {
           alert(message);
         }
@@ -253,9 +255,7 @@
         if (successMessageElement) {
           successMessageElement.textContent = message;
           successMessageElement.style.display = 'block';
-          setTimeout(() => {
-            successMessageElement.style.display = 'none';
-          }, 5000);
+          setTimeout(() => { successMessageElement.style.display = 'none'; }, 5000);
         } else {
           alert(message);
         }
@@ -263,14 +263,10 @@
 
       // Modal event listeners
       if (openSignUpModalBtn) {
-        openSignUpModalBtn.addEventListener('click', () => {
-          signUpModal.style.display = 'block';
-        });
+        openSignUpModalBtn.addEventListener('click', () => { signUpModal.style.display = 'block'; });
       }
       if (closeSignUpModalBtn) {
-        closeSignUpModalBtn.addEventListener('click', () => {
-          signUpModal.style.display = 'none';
-        });
+        closeSignUpModalBtn.addEventListener('click', () => { signUpModal.style.display = 'none'; });
       }
       window.addEventListener('click', (event) => {
         if (event.target === signUpModal) {
@@ -279,22 +275,17 @@
       });
 
       // --- Form Validation Functions ---
-      const validateEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      };
-      const validatePassword = (password) => {
-        return password.length >= 6;
-      };
+      const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const validatePassword = (password) => password.length >= 6;
 
       // --- Sign-Up Form Submission ---
       const signUpForm = document.getElementById('signUpForm');
       if (signUpForm) {
         signUpForm.addEventListener('submit', async function (e) {
           e.preventDefault();
-          const username = this.username ? this.username.value.trim() : '';
-          const email = this.email ? this.email.value.trim() : '';
-          const password = this.password ? this.password.value : '';
+          const username = document.getElementById('signUpUsername').value.trim();
+          const email = document.getElementById('signUpEmail').value.trim();
+          const password = document.getElementById('signUpPassword').value;
           console.log('Submitting registration:', {
             url: `${API_BASE_URL}/api/register`,
             data: { username, email, password: '***' }
@@ -348,8 +339,8 @@
       if (loginForm) {
         loginForm.addEventListener('submit', async function (e) {
           e.preventDefault();
-          const email = this.email ? this.email.value.trim() : '';
-          const password = this.password ? this.password.value : '';
+          const email = document.getElementById('email').value.trim();
+          const password = document.getElementById('password').value;
           console.log('Attempting login:', {
             url: `${API_BASE_URL}/api/login`,
             email: email
@@ -425,8 +416,6 @@
       }
 
       // --- Authentication Check ---
-      // If user is logged in, force redirect to Amie-Skills if not already there;
-      // if not logged in, ensure they're on the Log-in-Amie page.
       const checkAuth = () => {
         const token = localStorage.getItem('token');
         const currentURL = window.location.href;
