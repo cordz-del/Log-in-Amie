@@ -97,6 +97,7 @@ main {
     transform: none;
 }
 
+/* Form Elements */
 .input-group {
     margin-bottom: 1.8rem;
 }
@@ -156,22 +157,54 @@ main {
     opacity: 0.9;
 }
 
-/* Footer Styling */
-footer {
-    text-align: center;
-    padding: 1rem;
+/* Footer Styling (matching Amie-Skills) */
+.main-footer {
     background-color: #f8f8f8;
-    border-top: 1px solid #ddd;
+    padding: 4rem 2rem 1rem;
+    margin-top: auto;
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
 }
 
-footer p {
-    font-size: 0.9rem;
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
+
+.footer-section h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-section a {
     color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
 }
 
-/* Hide footer links: Privacy Policy, Terms of Service, Support */
-footer .footer-links {
-    display: none;
+.footer-section a:hover {
+    color: #0056b3;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ddd;
+    color: #666;
+    font-size: 0.9rem;
 }
 
 /* Responsive Design */
@@ -186,7 +219,6 @@ footer .footer-links {
     }
 
     /* Navigation links removed in responsive design as well */
-
     main {
         justify-content: center;
         padding-right: 1rem;
@@ -209,15 +241,14 @@ footer .footer-links {
 }
 
 /* --- Modal Styles for Create Profile --- */
-/* Modal container (hidden by default) */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1100;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+    display: none;
+    position: fixed;
+    z-index: 1100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
 }
