@@ -105,7 +105,7 @@
       margin-top: 0.25rem;
     }
     
-    /* Remove transform on hero content and align text to left */
+    /* Align hero content text to left */
     .hero-content {
       text-align: left;
     }
@@ -163,4 +163,291 @@
           <button type="button" class="btn create" id="openSignUpModal">Create Profile</button>
         </div>
       </form>
-      <div cla
+      <div class="terms">
+        <p>By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Create Profile Modal -->
+  <div id="signUpModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeSignUpModal">&times;</span>
+      <h2>Create Your Profile</h2>
+      <form id="signUpForm" novalidate>
+        <div class="input-group">
+          <label for="signUpUsername">Username</label>
+          <input 
+            type="text" 
+            id="signUpUsername" 
+            name="username" 
+            required 
+            minlength="3"
+            placeholder="Choose a username">
+          <div class="error-message" id="usernameError"></div>
+        </div>
+        <div class="input-group">
+          <label for="signUpEmail">Email Address</label>
+          <input 
+            type="email" 
+            id="signUpEmail" 
+            name="email" 
+            required 
+            placeholder="Enter your email">
+          <div class="error-message" id="signUpEmailError"></div>
+        </div>
+        <div class="input-group">
+          <label for="signUpPassword">Password</label>
+          <input 
+            type="password" 
+            id="signUpPassword" 
+            name="password" 
+            required 
+            minlength="8"
+            placeholder="Choose a password">
+          <div class="password-requirements">
+            Password must be at least 8 characters long and include uppercase, lowercase, number, and special character
+          </div>
+          <div class="error-message" id="signUpPasswordError"></div>
+        </div>
+        <button type="submit">
+          Create Account
+          <span class="loading" id="signUpLoading">Loading...</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Amie</h3>
+        <p>Your trusted emotional and mental health companion, available 24/7.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </div>
+      <!-- "Connect With Us" section removed -->
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Amie. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // --- Modal Handling ---
+      const signUpModal = document.getElementById('signUpModal');
+      const openSignUpModalBtn = document.getElementById('openSignUpModal');
+      const closeSignUpModalBtn = document.getElementById('closeSignUpModal');
+      const errorMessageElement = document.getElementById('errorMessage');
+      const successMessageElement = document.getElementById('successMessage');
+
+      // Show error message function
+      const showError = (message) => {
+        if (errorMessageElement) {
+          errorMessageElement.textContent = message;
+          errorMessageElement.style.display = 'block';
+          setTimeout(() => { errorMessageElement.style.display = 'none'; }, 5000);
+        } else {
+          alert(message);
+        }
+      };
+
+      // Show success message function
+      const showSuccess = (message) => {
+        if (successMessageElement) {
+          successMessageElement.textContent = message;
+          successMessageElement.style.display = 'block';
+          setTimeout(() => { successMessageElement.style.display = 'none'; }, 5000);
+        } else {
+          alert(message);
+        }
+      };
+
+      // Modal event listeners
+      if (openSignUpModalBtn) {
+        openSignUpModalBtn.addEventListener('click', () => { signUpModal.style.display = 'block'; });
+      }
+      if (closeSignUpModalBtn) {
+        closeSignUpModalBtn.addEventListener('click', () => { signUpModal.style.display = 'none'; });
+      }
+      window.addEventListener('click', (event) => {
+        if (event.target === signUpModal) {
+          signUpModal.style.display = 'none';
+        }
+      });
+
+      // --- Form Validation Functions ---
+      const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const validatePassword = (password) => password.length >= 6;
+
+      // --- Sign-Up Form Submission ---
+      const signUpForm = document.getElementById('signUpForm');
+      if (signUpForm) {
+        signUpForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const username = document.getElementById('signUpUsername').value.trim();
+          const email = document.getElementById('signUpEmail').value.trim();
+          const password = document.getElementById('signUpPassword').value;
+          console.log('Submitting registration:', {
+            url: `${API_BASE_URL}/api/register`,
+            data: { username, email, password: '***' }
+          });
+          if (!username || !email || !password) {
+            showError('All fields are required');
+            return;
+          }
+          if (!validatePassword(password)) {
+            showError('Password must be at least 6 characters long');
+            return;
+          }
+          if (!validateEmail(email)) {
+            showError('Please enter a valid email address');
+            return;
+          }
+          try {
+            const response = await fetch(`${API_BASE_URL}/api/register`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              credentials: 'include',
+              mode: 'cors',
+              body: JSON.stringify({ username, email, password })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+              throw new Error(data.error || `HTTP error! status: ${response.status}`);
+            }
+            localStorage.setItem('currentUser', data.username);
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('token', data.token);
+            showSuccess('Profile created successfully!');
+            signUpModal.style.display = 'none';
+            signUpForm.reset();
+            setTimeout(() => {
+              window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+            }, 1500);
+          } catch (error) {
+            console.error('Sign-up error:', error);
+            showError(error.message || 'Failed to create account. Please try again.');
+          }
+        });
+      }
+
+      // --- Login Form Submission ---
+      const loginForm = document.getElementById('loginForm');
+      if (loginForm) {
+        loginForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const email = document.getElementById('email').value.trim();
+          const password = document.getElementById('password').value;
+          console.log('Attempting login:', {
+            url: `${API_BASE_URL}/api/login`,
+            email: email
+          });
+          if (!email || !password) {
+            showError('Email and password are required');
+            return;
+          }
+          if (!validateEmail(email)) {
+            showError('Please enter a valid email address');
+            return;
+          }
+          try {
+            const response = await fetch(`${API_BASE_URL}/api/login`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              credentials: 'include',
+              mode: 'cors',
+              body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+              throw new Error(data.error || `HTTP error! status: ${response.status}`);
+            }
+            localStorage.setItem('currentUser', data.username);
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('token', data.token);
+            showSuccess('Login successful!');
+            setTimeout(() => {
+              window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+            }, 1500);
+          } catch (error) {
+            console.error('Login error:', error);
+            showError(error.message || 'Invalid email or password.');
+          }
+        });
+      }
+
+      // --- Logout Function ---
+      const logout = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          if (!token) {
+            throw new Error('No authentication token found');
+          }
+          const response = await fetch(`${API_BASE_URL}/api/logout`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            mode: 'cors'
+          });
+          if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.error || 'Logout failed');
+          }
+          localStorage.clear();
+          window.location.href = 'https://cordz-del.github.io/Log-in-Amie/';
+        } catch (error) {
+          console.error('Logout error:', error);
+          showError('Error logging out. Please try again.');
+        }
+      };
+      const logoutButton = document.getElementById('logoutButton');
+      if (logoutButton) {
+        logoutButton.addEventListener('click', logout);
+      }
+
+      // --- Authentication Check ---
+      const checkAuth = () => {
+        const token = localStorage.getItem('token');
+        const currentURL = window.location.href;
+        if (token && !currentURL.includes('/Amie-Skills')) {
+          window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+        } else if (!token && !currentURL.includes('/Log-in-Amie')) {
+          window.location.href = 'https://cordz-del.github.io/Log-in-Amie/';
+        }
+      };
+      checkAuth();
+    });
+  </script>
+</body>
+</html>
