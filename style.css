@@ -59,25 +59,28 @@ body {
 
 /* Main Content */
 main {
-    flex: 1;
-    margin-top: 7rem; /* Just enough top margin to clear the fixed header */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 7rem; /* Clear the fixed header */
+    padding: 0 2rem;
 }
 
-/* Hero Content - welcome text styling */
+/* Hero Content: Shifted 20rem farther to the left */
 .hero-content {
     text-align: left;
-    margin-bottom: 3rem; /* Added spacing to separate from the login container */
+    transform: translateX(-20rem);
 }
 
 .login-box {
     background: white;
     padding: 2.5rem;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 400px;
     position: relative;
-    margin-left: 1rem; /* Optional small left margin */
+    margin-left: 1rem; /* Small left margin */
 }
 
 .login-box::after {
@@ -93,9 +96,9 @@ main {
     opacity: 0.3;
 }
 
-/* Adjust welcome text position: align to left */
-.login-box h2,
-.login-box h2 + p {
+/* Adjust welcome text inside hero-content */
+.hero-content h2,
+.hero-content p {
     text-align: left;
     transform: none;
 }
@@ -125,7 +128,7 @@ main {
 .input-group input:focus {
     outline: none;
     border-color: #0056b3;
-    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+    box-shadow: 0 0 0 3px rgba(0,86,179,0.1);
     background-color: white;
 }
 
@@ -165,7 +168,7 @@ main {
     background-color: #f8f8f8;
     padding: 4rem 2rem 1rem;
     margin-top: auto;
-    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
 }
 
 .footer-content {
@@ -219,7 +222,6 @@ main {
     .logo {
         align-items: center;
     }
-    /* Navigation links removed in responsive design as well */
     main {
         margin-top: 9rem; /* Extra top space for header on small screens */
     }
