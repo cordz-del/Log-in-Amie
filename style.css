@@ -61,12 +61,12 @@ body {
 /* Main Content */
 main {
     flex: 1;                      /* Let main expand to fill vertical space */
-    display: flex;               /* Flex layout for vertical centering */
-    align-items: center;         /* Center contents vertically */
-    justify-content: flex-end;   /* Push the login box to the right */
+    display: flex;                /* Flex layout for vertical centering */
+    align-items: center;          /* Center contents vertically */
+    justify-content: flex-end;    /* Push the login box to the right */
     max-width: 1500px;
     width: 100%;
-    margin: 7rem auto 0;         /* Top margin for fixed header clearance, auto to center horizontally */
+    margin: 7rem auto 0;          /* Top margin for fixed header clearance, auto to center horizontally */
     padding: 0 2rem;
 }
 
@@ -95,12 +95,11 @@ main {
     opacity: 0.3;
 }
 
-/* Shift "Welcome Back" text 20rem to the left */
+/* Shift "Welcome Back" text farther away from the login box */
 .login-box h2,
 .login-box h2 + p {
     text-align: left;
-    left: -10px;
-    transform: translateX(40rem);
+    transform: translateX(-50rem);
 }
 
 /* Form Elements */
