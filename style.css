@@ -59,9 +59,14 @@ body {
 
 /* Main Content */
 main {
-    /* Remove flex layout and extra padding so text can align fully left */
     flex: 1;
     margin-top: 7rem; /* Just enough top margin to clear the fixed header */
+}
+
+/* Hero Content - welcome text styling */
+.hero-content {
+    text-align: left;
+    margin-bottom: 3rem; /* Added spacing to separate from the login container */
 }
 
 .login-box {
@@ -72,7 +77,7 @@ main {
     width: 100%;
     max-width: 400px;
     position: relative;
-    margin-left: 1rem; /* Optional small left margin if you want some spacing */
+    margin-left: 1rem; /* Optional small left margin */
 }
 
 .login-box::after {
@@ -211,21 +216,17 @@ main {
         flex-direction: column;
         gap: 1rem;
     }
-
     .logo {
         align-items: center;
     }
-
     /* Navigation links removed in responsive design as well */
     main {
-        margin-top: 9rem; /* Keep extra top space for header on small screens */
+        margin-top: 9rem; /* Extra top space for header on small screens */
     }
-
     .login-box {
         margin: 2rem auto; /* Center the login box on small screens */
         padding: 2rem;
     }
-
     .login-box::after {
         width: 95%;
         left: -5px;
