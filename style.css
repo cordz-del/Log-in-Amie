@@ -99,7 +99,7 @@ main {
 .login-box h2,
 .login-box h2 + p {
     text-align: left;
-    transform: translateX(20rem);
+    transform: translateX(40rem);
 }
 
 /* Form Elements */
