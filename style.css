@@ -59,12 +59,9 @@ body {
 
 /* Main Content */
 main {
+    /* Remove flex layout and extra padding so text can align fully left */
     flex: 1;
-    padding: 7rem 1rem 2rem;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 10%;
+    margin-top: 7rem; /* Just enough top margin to clear the fixed header */
 }
 
 .login-box {
@@ -75,6 +72,7 @@ main {
     width: 100%;
     max-width: 400px;
     position: relative;
+    margin-left: 1rem; /* Optional small left margin if you want some spacing */
 }
 
 .login-box::after {
@@ -220,12 +218,11 @@ main {
 
     /* Navigation links removed in responsive design as well */
     main {
-        justify-content: center;
-        padding-right: 1rem;
+        margin-top: 9rem; /* Keep extra top space for header on small screens */
     }
 
     .login-box {
-        margin: 0 1rem;
+        margin: 2rem auto; /* Center the login box on small screens */
         padding: 2rem;
     }
 
@@ -233,10 +230,6 @@ main {
         width: 95%;
         left: -5px;
         top: 5px;
-    }
-
-    main {
-        padding-top: 9rem;
     }
 }
 
