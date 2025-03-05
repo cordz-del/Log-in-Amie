@@ -92,7 +92,7 @@ main {
 /* Adjust welcome text position */
 .login-box h2,
 .login-box h2 + p {
-    transform: translateX(-30px);
+    transform: translateX(-15rem); /* Move the text 15rem to the left */
 }
 
 .input-group {
