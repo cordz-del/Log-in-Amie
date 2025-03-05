@@ -54,29 +54,7 @@ body {
     margin-top: -5px;
 }
 
-.nav-links {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.nav-links a:hover {
-    background-color: #f0f0f0;
-}
-
-.nav-links a.active {
-    color: #0056b3;
-    background-color: #e6f0ff;
-}
+/* Navigation links removed as per requirement */
 
 /* Main Content */
 main {
@@ -109,6 +87,12 @@ main {
     left: -10px;
     z-index: -1;
     opacity: 0.3;
+}
+
+/* Adjust welcome text position */
+.login-box h2,
+.login-box h2 + p {
+    transform: translateX(-15px);
 }
 
 .input-group {
@@ -194,11 +178,7 @@ footer p {
         align-items: center;
     }
 
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
+    /* Navigation links removed in responsive design as well */
 
     main {
         justify-content: center;
