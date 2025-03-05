@@ -1,209 +1,215 @@
 /* Basic Resets */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #fafafa;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Header Styling (matching Log-In-Amie) */
 .main-header {
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem 2rem;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .logo h1 {
-  font-size: 2.5rem;
-  background: linear-gradient(45deg, #0056b3, #89cfff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, #0056b3, #89cfff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
 }
 
 .logo .description {
-  font-size: 0.9rem;
-  color: #001f3f;
-  margin-top: -5px;
+    font-size: 0.9rem;
+    color: #001f3f;
+    margin-top: -5px;
 }
 
 /* (Navigation links removed as per requirement) */
 
 /* Main Content */
 main {
-  flex: 1;                      /* Let main expand to fill available vertical space */
-  display: flex;                /* Enable flex layout */
-  align-items: center;          /* Vertically center contents */
-  justify-content: flex-end;    /* Push contents to the right */
-  max-width: 1200px;
-  width: 100%;
-  margin: 7rem auto 0;         /* Top margin to clear fixed header, auto to center horizontally */
-  padding: 0 2rem;
+    flex: 1;                      /* Let main expand to fill vertical space */
+    display: flex;               /* Flex layout for vertical centering */
+    align-items: center;         /* Center contents vertically */
+    justify-content: flex-end;   /* Push the login box to the right */
+    max-width: 1200px;
+    width: 100%;
+    margin: 7rem auto 0;         /* Top margin for fixed header clearance, auto to center horizontally */
+    padding: 0 2rem;
 }
 
 /* Login Box */
 .login-box {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  position: relative;
-  margin-left: 1rem; /* small left margin (optional) */
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    margin-left: 1rem; /* small left margin (optional) */
 }
 
 .login-box::after {
-  content: '';
-  position: absolute;
-  width: 95%;
-  height: 100%;
-  background-color: #808080;
-  border-radius: 15px;
-  top: 10px;
-  left: -10px;
-  z-index: -1;
-  opacity: 0.3;
+    content: '';
+    position: absolute;
+    width: 95%;
+    height: 100%;
+    background-color: #808080;
+    border-radius: 15px;
+    top: 10px;
+    left: -10px;
+    z-index: -1;
+    opacity: 0.3;
 }
 
-/* Additional Elements */
+/* Shift "Welcome Back" text an additional 20rem to the left */
+.login-box h2,
+.login-box h2 + p {
+    text-align: left;
+    transform: translateX(-20rem); /* Moves headings 20rem closer to the left */
+}
+
+/* Form Elements */
 .input-group {
-  margin-bottom: 1.8rem;
+    margin-bottom: 1.8rem;
 }
 
 .input-group label {
-  display: block;
-  margin-bottom: 0.7rem;
-  color: #2d3748;
-  font-weight: 600;
-  font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.7rem;
+    color: #2d3748;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
 .input-group input {
-  width: 100%;
-  padding: 0.9rem;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #f8fafc;
+    width: 100%;
+    padding: 0.9rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f8fafc;
 }
 
 .input-group input:focus {
-  outline: none;
-  border-color: #0056b3;
-  box-shadow: 0 0 0 3px rgba(0,86,179,0.1);
-  background-color: white;
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0,86,179,0.1);
+    background-color: white;
 }
 
 .button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
 .btn {
-  padding: 0.9rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .btn.signin {
-  background-color: #0056b3;
-  color: white;
+    background-color: #0056b3;
+    color: white;
 }
 
 .btn.create {
-  background: white;
-  border: 2px solid #0056b3;
-  color: #0056b3;
+    background: white;
+    border: 2px solid #0056b3;
+    color: #0056b3;
 }
 
 .btn:hover {
-  opacity: 0.9;
+    opacity: 0.9;
 }
 
 /* Footer Styling (matching Log-In-Amie) */
 .main-footer {
-  background-color: #f8f8f8;
-  padding: 4rem 2rem 1rem;
-  margin-top: auto;
-  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+    background-color: #f8f8f8;
+    padding: 4rem 2rem 1rem;
+    margin-top: auto;
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
 }
 
 .footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
 }
 
 .footer-section h3 {
-  color: #333;
-  margin-bottom: 1.5rem;
-  font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .footer-section ul {
-  list-style: none;
+    list-style: none;
 }
 
 .footer-section ul li {
-  margin-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 .footer-section a {
-  color: #666;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  font-size: 0.95rem;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .footer-section a:hover {
-  color: #0056b3;
+    color: #0056b3;
 }
 
-/* "Connect With Us" section removed */
 .footer-bottom {
-  text-align: center;
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #ddd;
-  color: #666;
-  font-size: 0.9rem;
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ddd;
+    color: #666;
+    font-size: 0.9rem;
 }
 
 /* Responsive Design */
@@ -240,4 +246,17 @@ main {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+}
+
+/* --- Modal Styles for Create Profile --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
 }
