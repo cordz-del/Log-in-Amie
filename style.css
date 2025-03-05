@@ -95,11 +95,11 @@ main {
     opacity: 0.3;
 }
 
-/* Shift "Welcome Back" text an additional 20rem to the left */
+/* Shift "Welcome Back" text 20rem to the left */
 .login-box h2,
 .login-box h2 + p {
     text-align: left;
-    transform: translateX(-20rem); /* Moves headings 20rem closer to the left */
+    transform: translateX(-20rem);
 }
 
 /* Form Elements */
