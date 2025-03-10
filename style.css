@@ -61,13 +61,20 @@ body {
 /* Main Content */
 main {
     flex: 1;                      /* Let main expand to fill vertical space */
-    display: flex;                /* Flex layout for vertical centering */
-    align-items: center;          /* Center contents vertically */
-    justify-content: flex-end;    /* Push the login box to the right */
+    display: flex;                /* Two-column layout: hero content on left, login box on right */
+    align-items: center;          /* Vertically centered */
+    justify-content: space-between;  /* Spread out horizontally */
     max-width: 1200px;
     width: 100%;
-    margin: 7rem auto 0;          /* Top margin for fixed header clearance, auto to center horizontally */
+    margin: 7rem auto 0;          /* Top margin for fixed header clearance */
     padding: 0 2rem;
+}
+
+/* Hero Content Styling */
+.hero-content {
+    flex: 1;
+    max-width: 500px;
+    text-align: left;
 }
 
 /* Login Box */
@@ -95,12 +102,7 @@ main {
     opacity: 0.3;
 }
 
-/* Shift "Welcome Back" text farther away from the login box */
-.login-box h2,
-.login-box h2 + p {
-    text-align: left;
-    transform: translateX(-50rem);
-}
+/* (Removed the transform for login-box headings as the hero content is separate) */
 
 /* Form Elements */
 .input-group {
@@ -231,10 +233,15 @@ main {
     align-items: center;
   }
   main {
+    flex-direction: column;
     padding-top: 9rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    justify-content: center; /* center the login box horizontally on small screens */
+    justify-content: center; /* Center content on small screens */
+  }
+  .hero-content {
+    margin-bottom: 2rem;
+    text-align: center;
   }
 }
 
