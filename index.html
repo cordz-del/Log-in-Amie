@@ -123,12 +123,14 @@
     </nav>
   </header>
 
-  <!-- Main Content -->
+  <!-- Main Content: now a two-column layout -->
   <main>
+    <!-- Hero Content on the left -->
     <div class="hero-content">
       <h2>Welcome Back</h2>
       <p>Your journey to better health.</p>
     </div>
+    <!-- Login Box on the right -->
     <div class="login-box">
       <h3>Sign In</h3>
       <form id="loginForm" action="#" method="post" novalidate>
@@ -242,7 +244,6 @@
           <li><a href="support.html">Support</a></li>
         </ul>
       </div>
-      <!-- "Connect With Us" section removed -->
     </div>
     <div class="footer-bottom">
       <p>&copy; 2025 Amie. All rights reserved.</p>
@@ -260,7 +261,6 @@
       const errorMessageElement = document.getElementById('errorMessage');
       const successMessageElement = document.getElementById('successMessage');
 
-      // Show error message function
       const showError = (message) => {
         if (errorMessageElement) {
           errorMessageElement.textContent = message;
@@ -271,7 +271,6 @@
         }
       };
 
-      // Show success message function
       const showSuccess = (message) => {
         if (successMessageElement) {
           successMessageElement.textContent = message;
@@ -282,7 +281,6 @@
         }
       };
 
-      // Modal event listeners
       if (openSignUpModalBtn) {
         openSignUpModalBtn.addEventListener('click', () => { signUpModal.style.display = 'block'; });
       }
@@ -295,11 +293,9 @@
         }
       });
 
-      // --- Form Validation Functions ---
       const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       const validatePassword = (password) => password.length >= 6;
 
-      // --- Sign-Up Form Submission ---
       const signUpForm = document.getElementById('signUpForm');
       if (signUpForm) {
         signUpForm.addEventListener('submit', async function (e) {
@@ -355,7 +351,6 @@
         });
       }
 
-      // --- Login Form Submission ---
       const loginForm = document.getElementById('loginForm');
       if (loginForm) {
         loginForm.addEventListener('submit', async function (e) {
@@ -404,7 +399,6 @@
         });
       }
 
-      // --- Logout Function ---
       const logout = async () => {
         try {
           const token = localStorage.getItem('token');
@@ -436,9 +430,17 @@
         logoutButton.addEventListener('click', logout);
       }
 
-      // --- Authentication Check ---
       const checkAuth = () => {
         const token = localStorage.getItem('token');
         const currentURL = window.location.href;
         if (token && !currentURL.includes('/Amie-Skills')) {
-          window.location.href = 'https://cordz-del.github.i
+          window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
+        } else if (!token && !currentURL.includes('/Log-in-Amie')) {
+          window.location.href = 'https://cordz-del.github.io/Log-in-Amie/';
+        }
+      };
+      checkAuth();
+    });
+  </script>
+</body>
+</html>
