@@ -239,7 +239,7 @@ main {
     padding-top: 9rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    justify-content: center; /* Center content on small screens */
+    justify-content: center;
     gap: 2rem;
   }
   .hero-box {
