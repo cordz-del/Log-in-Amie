@@ -14,7 +14,7 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styling (matching Log-In-Amie) */
+/* Header Styling (matching other pages) */
 .main-header {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -28,7 +28,7 @@ body {
 }
 
 .nav-container {
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -64,7 +64,7 @@ main {
     display: flex;                /* Flex layout for vertical centering */
     align-items: center;          /* Center contents vertically */
     justify-content: flex-end;    /* Push the login box to the right */
-    max-width: 1500px;
+    max-width: 1200px;
     width: 100%;
     margin: 7rem auto 0;          /* Top margin for fixed header clearance, auto to center horizontally */
     padding: 0 2rem;
@@ -162,7 +162,7 @@ main {
     opacity: 0.9;
 }
 
-/* Footer Styling (matching Log-In-Amie) */
+/* Footer Styling (matching other pages) */
 .main-footer {
     background-color: #f8f8f8;
     padding: 4rem 2rem 1rem;
