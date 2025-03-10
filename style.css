@@ -60,21 +60,25 @@ body {
 
 /* Main Content */
 main {
-    flex: 1;                      /* Let main expand to fill vertical space */
-    display: flex;                /* Two-column layout: hero content on left, login box on right */
-    align-items: center;          /* Vertically centered */
+    flex: 1;  /* Expand to fill vertical space */
+    display: flex;  /* Two-column layout: hero box on left, login box on right */
+    align-items: center;  /* Vertically centered */
     justify-content: space-between;  /* Spread out horizontally */
     max-width: 1200px;
     width: 100%;
-    margin: 7rem auto 0;          /* Top margin for fixed header clearance */
+    margin: 7rem auto 0;  /* Top margin for fixed header clearance */
     padding: 0 2rem;
 }
 
-/* Hero Content Styling */
-.hero-content {
+/* Hero Box (New separate container for hero text) */
+.hero-box {
     flex: 1;
     max-width: 500px;
     text-align: left;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Login Box */
@@ -86,7 +90,7 @@ main {
     width: 100%;
     max-width: 400px;
     position: relative;
-    margin-left: 1rem; /* small left margin (optional) */
+    margin-left: 1rem; /* Optional small left margin */
 }
 
 .login-box::after {
@@ -101,8 +105,6 @@ main {
     z-index: -1;
     opacity: 0.3;
 }
-
-/* (Removed the transform for login-box headings as the hero content is separate) */
 
 /* Form Elements */
 .input-group {
@@ -238,9 +240,9 @@ main {
     padding-left: 1rem;
     padding-right: 1rem;
     justify-content: center; /* Center content on small screens */
+    gap: 2rem;
   }
-  .hero-content {
-    margin-bottom: 2rem;
+  .hero-box {
     text-align: center;
   }
 }
