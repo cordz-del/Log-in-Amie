@@ -1,7 +1,6 @@
 const API_BASE_URL = 'https://nodejs-amiemongodb.replit.app';
 
 document.addEventListener('DOMContentLoaded', function () {
-
   // --- Modal Handling for "Create Profile" ---
   const signUpModal = document.getElementById('signUpModal');
   const openSignUpModalBtn = document.getElementById('openSignUpModal');
@@ -66,18 +65,20 @@ document.addEventListener('DOMContentLoaded', function () {
   if (signUpForm) {
     signUpForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      // Retrieve values – ensure your input elements have IDs/names: "username", "email", "password"
+      // Retrieve values – ensure your input elements have IDs/names: "firstName", "lastName", "username", "email", "password"
+      const firstName = this.firstName ? this.firstName.value.trim() : '';
+      const lastName = this.lastName ? this.lastName.value.trim() : '';
       const username = this.username ? this.username.value.trim() : '';
       const email = this.email ? this.email.value.trim() : '';
       const password = this.password ? this.password.value : '';
-      
+
       console.log('Submitting registration:', {
         url: `${API_BASE_URL}/api/register`,
-        data: { username, email, password: '***' }
+        data: { firstName, lastName, username, email, password: '***' }
       });
 
       // Enhanced validation: All fields must be non-empty
-      if (!username || !email || !password) {
+      if (!firstName || !lastName || !username || !email || !password) {
         showError('All fields are required');
         return;
       }
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
           },
           credentials: 'include',
           mode: 'cors',
-          body: JSON.stringify({ username, email, password })
+          body: JSON.stringify({ firstName, lastName, username, email, password })
         });
         const data = await response.json();
         if (!response.ok) {
@@ -131,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       const email = this.email ? this.email.value.trim() : '';
       const password = this.password ? this.password.value : '';
-      
+
       console.log('Attempting login:', {
         url: `${API_BASE_URL}/api/login`,
         email: email
@@ -215,12 +216,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const checkAuth = () => {
     const token = localStorage.getItem('token');
     const currentPath = window.location.pathname;
-    // If user is logged in but on the Log-in-Amie page, redirect to Amie-Skills
     if (token && currentPath.includes('/Log-in-Amie')) {
       window.location.href = 'https://cordz-del.github.io/Amie-Skills/';
-    }
-    // If user is not logged in but is trying to access Amie-Skills, redirect to Log-in-Amie
-    else if (!token && currentPath.includes('/Amie-Skills')) {
+    } else if (!token && currentPath.includes('/Amie-Skills')) {
       window.location.href = 'https://cordz-del.github.io/Log-in-Amie/';
     }
   };
