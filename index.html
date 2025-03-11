@@ -177,6 +177,29 @@
       <span class="close" id="closeSignUpModal">&times;</span>
       <h2>Create Your Profile</h2>
       <form id="signUpForm" novalidate>
+        <!-- First Name Field -->
+        <div class="input-group">
+          <label for="signUpFirstName">First Name</label>
+          <input 
+            type="text" 
+            id="signUpFirstName" 
+            name="firstName" 
+            required 
+            placeholder="Enter your first name">
+          <div class="error-message" id="firstNameError"></div>
+        </div>
+        <!-- Last Name Field -->
+        <div class="input-group">
+          <label for="signUpLastName">Last Name</label>
+          <input 
+            type="text" 
+            id="signUpLastName" 
+            name="lastName" 
+            required 
+            placeholder="Enter your last name">
+          <div class="error-message" id="lastNameError"></div>
+        </div>
+        <!-- Username Field -->
         <div class="input-group">
           <label for="signUpUsername">Username</label>
           <input 
@@ -188,6 +211,7 @@
             placeholder="Choose a username">
           <div class="error-message" id="usernameError"></div>
         </div>
+        <!-- Email Field -->
         <div class="input-group">
           <label for="signUpEmail">Email Address</label>
           <input 
@@ -198,6 +222,7 @@
             placeholder="Enter your email">
           <div class="error-message" id="signUpEmailError"></div>
         </div>
+        <!-- Password Field -->
         <div class="input-group">
           <label for="signUpPassword">Password</label>
           <input 
@@ -300,14 +325,16 @@
       if (signUpForm) {
         signUpForm.addEventListener('submit', async function (e) {
           e.preventDefault();
+          const firstName = document.getElementById('signUpFirstName').value.trim();
+          const lastName = document.getElementById('signUpLastName').value.trim();
           const username = document.getElementById('signUpUsername').value.trim();
           const email = document.getElementById('signUpEmail').value.trim();
           const password = document.getElementById('signUpPassword').value;
           console.log('Submitting registration:', {
             url: `${API_BASE_URL}/api/register`,
-            data: { username, email, password: '***' }
+            data: { firstName, lastName, username, email, password: '***' }
           });
-          if (!username || !email || !password) {
+          if (!firstName || !lastName || !username || !email || !password) {
             showError('All fields are required');
             return;
           }
@@ -328,7 +355,7 @@
               },
               credentials: 'include',
               mode: 'cors',
-              body: JSON.stringify({ username, email, password })
+              body: JSON.stringify({ firstName, lastName, username, email, password })
             });
             const data = await response.json();
             if (!response.ok) {
